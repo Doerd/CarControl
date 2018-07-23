@@ -14,7 +14,7 @@ public class SimpleColorRasterKernel extends Kernel {
 
     private int nrows, ncols;
 
-    private byte[] bayer, simple;
+    private @Local byte[] bayer, simple;
 
     /**
      * Constructs an <code>SimpleColorRasterKernel</code> Aparapi {@link com.aparapi.opencl.OpenCL OpenCL} kernel.
@@ -73,9 +73,9 @@ public class SimpleColorRasterKernel extends Kernel {
         int rows = getGlobalId(0);
         int cols = getGlobalId(1);
 
-        int R = ((((int) bayer[(rows * ncols * 2 + cols) * 2]) & 0xFF)); // Top left (red)
-        int G = ((((int) bayer[(rows * ncols * 2 + cols) * 2 + 1]) & 0xFF)); // Top right (green)
-        int B = (((int) bayer[(rows * ncols * 2 + cols) * 2 + 1 + 2 * ncols]) & 0xFF);  // Bottom right (blue)
+        int R = ((((int) bayer[(rows * ncols * 2 + cols) * 2                ]) & 0xFF)); // Top left (red)
+        int G = ((((int) bayer[(rows * ncols * 2 + cols) * 2 + 1            ]) & 0xFF)); // Top right (green)
+        int B = (( (int) bayer[(rows * ncols * 2 + cols) * 2 + 1 + 2 * ncols]) & 0xFF);  // Bottom right (blue)
 
         // If one of the colors has a value 50 greater than both other colors
         // it assigns that pixel to that color
