@@ -6,9 +6,6 @@ import com.aparapi.Range;
 import com.apw.fly2cam.FlyCamera;
 import com.apw.gpu.*;
 
-import java.lang.invoke.LambdaMetafactory;
-import java.util.Arrays;
-
 public class ImageManager {
 
     int nrows, ncols;
@@ -16,7 +13,7 @@ public class ImageManager {
     private byte mono[];
     private byte simple[];
     private int rgb[];
-    private Processsor processsor;
+    private Processor processor;
     private MonochromeRasterKernel monoRasterKernel;
     private SimpleColorRasterKernel simpleColorRasterKernel;
     private RGBRasterKernel rgbRasterKernel;
@@ -59,15 +56,15 @@ public class ImageManager {
 
     public void runOnGpu(boolean value) {
         if (value)
-            processsor = Processsor.GPU;
+            processor = Processor.GPU;
         else
-            processsor = Processsor.CPU;
+            processor = Processor.CPU;
     }
 
     /*Serves monochrome raster of camera feed
      * Formatted in 1D array of bytes*/
     public byte[] getMonochromeRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             monoRasterKernel.execute(Range.create2D(nrows, ncols));
             return monoRasterKernel.getMono();
         } else {
@@ -79,7 +76,7 @@ public class ImageManager {
     }
 
     public byte[] getBlackWhiteRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             bwRasterKernel.execute(Range.create2D(nrows, ncols));
             return bwRasterKernel.getMono();
         } else {
@@ -99,7 +96,7 @@ public class ImageManager {
      * 5 = BLACK
      */
     public byte[] getSimpleColorRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             simpleColorRasterKernel.execute(Range.create2D(nrows, ncols));
             return simpleColorRasterKernel.getSimple();
         } else {
@@ -112,7 +109,7 @@ public class ImageManager {
     }
 
     public int[] getRGBRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             rgbRasterKernel.execute(Range.create2D(nrows, ncols));
             return rgbRasterKernel.getRgb();
         } else {
@@ -124,7 +121,7 @@ public class ImageManager {
     }
 
     public int[] getSimpleRGBRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             simpleColorRasterKernel.execute(Range.create2D(nrows, ncols));
             simpleToRgbKernel.execute(Range.create(simple.length));
             return simpleToRgbKernel.getSimpleRGB();
@@ -140,7 +137,7 @@ public class ImageManager {
     }
 
     public int[] getBWRGBRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             bwRasterKernel.execute(Range.create2D(nrows, ncols));
             bwToRgbKernel.execute(Range.create(mono.length));
             return bwToRgbKernel.getMono();
@@ -156,7 +153,7 @@ public class ImageManager {
     }
 
     public int[] getMonoRGBRaster() {
-        if (processsor == Processsor.GPU) {
+        if (processor == Processor.GPU) {
             monoRasterKernel.execute(Range.create(mono.length));
             monoToRgbKernel.execute(Range.create2D(nrows, ncols));
             return monoToRgbKernel.getRGB();
@@ -181,7 +178,7 @@ public class ImageManager {
         bwToRgbKernel.dispose();
     }
 
-    enum Processsor {
+    public enum Processor {
         CPU,
         GPU
     }

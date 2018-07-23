@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f525b4a3-b0b1-4062-9d6e-80535089a8f9" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/gpu/target/" />
@@ -38,11 +41,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ImageManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImageManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1368">
-              <caret line="70" column="67" selection-start-line="70" selection-start-column="67" selection-end-line="70" selection-end-column="67" />
+            <state relative-caret-position="384">
+              <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+              <folding>
+                <element signature="e#1941#1942#0" expanded="true" />
+                <element signature="e#1975#1976#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +57,35 @@
       <file leaf-file-name="BlackWhiteRasterKernel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+            <state relative-caret-position="318">
+              <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageManipulator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManipulator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="41" column="13" lean-forward="true" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RGBRasterKernel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/RGBRasterKernel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="61" column="82" lean-forward="true" selection-start-line="61" selection-start-column="82" selection-end-line="61" selection-end-column="82" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="197" column="20" lean-forward="true" selection-start-line="197" selection-start-column="20" selection-end-line="197" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -59,7 +93,7 @@
       <file leaf-file-name="SimCamera.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/apw3/SimCamera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
+            <state relative-caret-position="24">
               <caret line="27" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
@@ -68,76 +102,38 @@
       <file leaf-file-name="DrDemo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/drivedemo/DrDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22560">
-              <caret line="1021" column="47" lean-forward="true" selection-start-line="1021" selection-start-column="47" selection-end-line="1021" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4434#4435#0" expanded="true" />
-                <element signature="e#4468#4469#0" expanded="true" />
-                <element signature="e#35532#35533#0" expanded="true" />
-                <element signature="e#35572#35573#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="7344">
+              <caret line="321" lean-forward="true" selection-start-line="321" selection-end-line="321" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DriveTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/drivedemo/DriveTest.java">
+      <file leaf-file-name="SpeedController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/SpeedCon/SpeedController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1608">
-              <caret line="82" column="5" lean-forward="true" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-              <folding>
-                <element signature="e#1242#1243#0" expanded="true" />
-                <element signature="e#1277#1278#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2280">
+              <caret line="104" column="43" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DriverCons.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/apw3/DriverCons.java">
+      <file leaf-file-name="Steering.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/Steering/Steering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-480">
-              <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
+            <state relative-caret-position="2688">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constant.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/pedestrians/Constant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/SpeedCon/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="634">
-              <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrakSim.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TrakSim.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/apw3/TrakSim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="5016" column="43" lean-forward="true" selection-start-line="5016" selection-start-column="43" selection-end-line="5016" selection-end-column="43" />
+            <state relative-caret-position="119520">
+              <caret line="5016" column="43" selection-start-line="5016" selection-start-column="43" selection-end-line="5016" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Arduino.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/fakefirm/Arduino.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1286">
-              <caret line="117" column="37" lean-forward="true" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -179,6 +175,8 @@
       <find>imageManager</find>
       <find>imageManager =</find>
       <find>fps</find>
+      <find>gradle</find>
+      <find>.gradle</find>
     </findStrings>
     <replaceStrings>
       <replace>cols</replace>
@@ -560,7 +558,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/apw/blobfilter/MovingBlobGraphAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/blobtrack/IMovingBlobDetection.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/blobtrack/MovingBlob.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/blobtrack/MovingBlobDetection.java" />
@@ -588,13 +585,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/KernelType.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/KernelManager.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/test/java/com/apw/ImageManagement/ImageManipulatorTest.groovy" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/apw3/HandyOps.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/pedestrians/blobdetect/PrimitiveBlobDetection.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/ImageProcessing.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/MonochromeRasterKernel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/BWToRGBKernel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/MonoToRGBKernel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManipulator.java" />
@@ -604,12 +599,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/apw/SpeedCon/SpeedController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/SpeedCon/SpeedFinder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/apw3/TrakSim.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/RGBRasterKernel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/apw3/DriverCons.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/SimpleColorRasterKernel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/SimpleToRGBKernel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/drivedemo/DriveTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/drivedemo/DrDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/KernelRunner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/apw/gpu/RGBRasterKernel.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManager.java" />
       </list>
     </option>
@@ -651,11 +649,133 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <hideEmptyPackages Scope="false" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+              <item name="apw3" type="cbb8eebc:String" user="apw3" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+              <item name="drivedemo" type="cbb8eebc:String" user="drivedemo" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+              <item name="fakefirm" type="cbb8eebc:String" user="fakefirm" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+              <item name="fly2cam" type="cbb8eebc:String" user="fly2cam" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+              <item name="gpu" type="cbb8eebc:String" user="gpu" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
+              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com" type="cbb8eebc:String" user="com" />
+              <item name="apw" type="cbb8eebc:String" user="apw" />
+              <item name="ImageManagement" type="cbb8eebc:String" user="ImageManagement" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="CarControl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarControl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarControl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarControl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -771,135 +891,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="CarControl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CarControl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="CarControl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CarControl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-              <item name="apw3" type="cbb8eebc:String" user="apw3" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-              <item name="drivedemo" type="cbb8eebc:String" user="drivedemo" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-              <item name="fakefirm" type="cbb8eebc:String" user="fakefirm" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-              <item name="fly2cam" type="cbb8eebc:String" user="fly2cam" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-              <item name="gpu" type="cbb8eebc:String" user="gpu" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="CarControl" type="cbb8eebc:String" user="CarControl" />
-              <item name="CarControl_main" type="cbb8eebc:String" user="CarControl_main" />
-              <item name="src/main" type="cbb8eebc:String" user="src/main" />
-              <item name="java" type="cbb8eebc:String" user="java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="apw" type="cbb8eebc:String" user="apw" />
-              <item name="ImageManagement" type="cbb8eebc:String" user="ImageManagement" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="build.gradle&#9;FILE&#9;file://C:/JavaProjects/ACPW/CarControl/build.gradle&#10;ignore&#9;FILE&#9;file://C:/JavaProjects/ACPW/CarControl/.gitignore&#10;gradle&#9;ACTION&#9;AddGradleDslPluginAction&#10;mave&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;mav&#9;ACTION&#9;ActivateMavenProjectsToolWindow" />
+    <property name="SearchEverywhereHistoryKey" value="gitignore&#9;FILE&#9;file://C:/JavaProjects/ACPW/CarControl/src/main/java/com/apw/drivedemo/.gitignore&#10;build.gradle&#9;FILE&#9;file://C:/JavaProjects/ACPW/CarControl/build.gradle&#10;ignore&#9;FILE&#9;file://C:/JavaProjects/ACPW/CarControl/.gitignore&#10;gradle&#9;ACTION&#9;AddGradleDslPluginAction&#10;mave&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;mav&#9;ACTION&#9;ActivateMavenProjectsToolWindow" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/src/test/java/com/apw/ImageManagement/ImageManipulatorTest.groovy" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Groovy JUnit" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
@@ -1086,6 +1084,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1093,18 +1092,16 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32905984" />
       <window_info anchor="right" id="Maven Projects" order="4" weight="0.3296875" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.23028392" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6837607" visible="true" weight="0.12708333" />
-      <window_info anchor="bottom" id="Build" order="11" weight="0.32905984" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="right" id="Gradle" order="7" weight="0.3296875" />
       <window_info id="Structure" order="1" sideWeight="0.31623933" side_tool="true" weight="0.12708333" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Coverage" order="6" side_tool="true" weight="0.3296875" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1144,7 +1141,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/fly2cam/Camera2File.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/pedestrians/blobtrack/MovingBlobDetection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
@@ -1171,13 +1167,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/KernelManager.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/apw/ImageManagement/ImageManipulatorTest.groovy" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="201" column="19" selection-start-line="201" selection-start-column="19" selection-end-line="201" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/fakefirm/Arduino.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1286">
@@ -1217,10 +1206,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="82" column="44" selection-start-line="82" selection-start-column="44" selection-end-line="82" selection-end-column="44" />
-          <folding>
-            <element signature="e#2925#2926#0" expanded="true" />
-            <element signature="e#2969#2970#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1301,24 +1286,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManipulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3360">
-          <caret line="140" column="1" selection-start-line="140" selection-start-column="1" selection-end-line="140" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/ImageProcessing.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/drivedemo/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-576">
-          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
         </state>
       </provider>
     </entry>
@@ -1327,14 +1298,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/Steering/Steering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#4362#4363#0" expanded="true" />
-            <element signature="e#4399#4400#0" expanded="true" />
-            <element signature="e#5618#5619#0" expanded="true" />
-            <element signature="e#5642#5643#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2688">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
         </state>
       </provider>
     </entry>
@@ -1378,26 +1343,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="514">
           <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-          <folding>
-            <element signature="e#143#144#0" expanded="true" />
-            <element signature="e#209#210#0" expanded="true" />
-            <element signature="e#415#416#0" expanded="true" />
-            <element signature="e#463#464#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/SpeedCon/SpeedController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1752">
-          <caret line="82" column="37" selection-start-line="82" selection-start-column="37" selection-end-line="82" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/RGBRasterKernel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="62" column="16" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
+        <state relative-caret-position="2280">
+          <caret line="104" column="43" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -1408,38 +1360,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="70" column="67" selection-start-line="70" selection-start-column="67" selection-end-line="70" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/drivedemo/DrDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22560">
-          <caret line="1021" column="47" lean-forward="true" selection-start-line="1021" selection-start-column="47" selection-end-line="1021" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4434#4435#0" expanded="true" />
-            <element signature="e#4468#4469#0" expanded="true" />
-            <element signature="e#35532#35533#0" expanded="true" />
-            <element signature="e#35572#35573#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/apw3/SimCamera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="7344">
+          <caret line="321" lean-forward="true" selection-start-line="321" selection-end-line="321" />
         </state>
       </provider>
     </entry>
@@ -1477,10 +1401,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/apw3/TrakSim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="5016" column="43" lean-forward="true" selection-start-line="5016" selection-start-column="43" selection-end-line="5016" selection-end-column="43" />
+        <state relative-caret-position="119520">
+          <caret line="5016" column="43" selection-start-line="5016" selection-start-column="43" selection-end-line="5016" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManipulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="41" column="13" lean-forward="true" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/BlackWhiteRasterKernel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/KernelRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/apw3/SimCamera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/drivedemo/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="187" column="7" lean-forward="true" selection-start-line="187" selection-start-column="7" selection-end-line="187" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/gpu/RGBRasterKernel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="61" column="82" lean-forward="true" selection-start-line="61" selection-start-column="82" selection-end-line="61" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="197" column="20" lean-forward="true" selection-start-line="197" selection-start-column="20" selection-end-line="197" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apw/ImageManagement/ImageManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+          <folding>
+            <element signature="e#1941#1942#0" expanded="true" />
+            <element signature="e#1975#1976#0" expanded="true" />
           </folding>
         </state>
       </provider>
