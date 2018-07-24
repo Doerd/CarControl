@@ -12,9 +12,6 @@ public class Steering {
 	public int startingPoint = 0;
 	
 	//767 is white
-
-    private long averageLuminance = 0;
-
 	public int heightOfArea = 32;
 	public int startingHeight = 272;
 
@@ -50,52 +47,67 @@ public class Steering {
 	}
 	
 	public List<Point> findPoints(int[] pixels) {
-	    int count = 0;
         clearArrays();
+		int midX = cameraWidth / 2; // midX is where the car thinks is the middle of the road
+		double distanceAhead = 1.8; // how far ahead the car looks for road. (Eventually dynamic?)
 
-        averageLuminance = 0;
-        for (int pixel = 0; pixel < pixels.length; pixel++) {
-            if (pixel % screenWidth < cameraWidth) {
-                averageLuminance += pixels[pixel];
-            }
-            count++;
-        }
-        averageLuminance = (long)(averageLuminance / count * 1.5);
 
-	    int midX = cameraWidth / 2;
-	    for (int cameraRow = screenHeight - 20; cameraRow > screenHeight / 2; cameraRow--) {
-	        for (int cameraColumn = midX; cameraColumn < cameraWidth; cameraColumn++) {
-	            if (!rightSideFound && pixels[(screenWidth * (cameraRow - 1)) + cameraColumn] >= averageLuminance) {
-	                rightSideFound = true;
-	                rightPoints.add(new Point(cameraColumn, cameraRow));
-                }
-                if (!leftSideFound && pixels[(screenWidth * (cameraRow)) - cameraColumn] >= averageLuminance) {
-	                leftSideFound = true;
-                    leftPoints.add(new Point(cameraColumn, cameraRow));
-                }
-            }
+	    // Iterate through each row in camera
+	    for (int cameraRow = screenHeight - 50; cameraRow > (int)(screenHeight / distanceAhead); cameraRow--) {
+
+	    	// Find left point
+	    	for (int cameraColumn = midX; cameraColumn >= 0; cameraColumn--) {
+				if (!leftSideFound && pixels[(screenWidth * (cameraRow)) + cameraColumn] >= 16777215) {
+					leftSideFound = true;
+					leftPoints.add(new Point(cameraColumn, cameraRow));
+					break;
+				}
+			}
+
+			// Find Right point
+			for (int cameraColumn = midX; cameraColumn <= cameraWidth; cameraColumn++) {
+				if (!rightSideFound && pixels[(screenWidth * (cameraRow - 1)) + cameraColumn] >= 16777215) {
+					rightSideFound = true;
+					rightPoints.add(new Point(cameraColumn, cameraRow));
+					break;
+				}
+			}
+
+			// If two Lanes are found, average the two
             if (rightSideFound && leftSideFound) {
 	            midX = (rightPoints.get(rightPoints.size() - 1).x + leftPoints.get(leftPoints.size() - 1).x) / 2;
                 midPoints.add(new Point(midX, cameraRow));
-            } else if (rightSideFound || leftSideFound) {
-	            //FINISH LATER
-            }
+
+			// If One lane is found, add midpoint 100 pixels towards middle.
+            } else if (rightSideFound) {
+	    		midX = rightPoints.get(rightPoints.size() - 1).x - 200;
+				midPoints.add(new Point(midX, cameraRow));
+			} else if (leftSideFound) {
+				midX = leftPoints.get(leftPoints.size() - 1).x + 200;
+				midPoints.add(new Point(midX, cameraRow));
+
+				// If no lanes are found, route towards found lines.
+            } else {
+	    		//FINISH LATER
+			}
 
             rightSideFound = false;
 	        leftSideFound = false;
         }
+
+		return midPoints;
 
         /*
 		int roadMiddle = cameraWidth;
 		int leftSideTemp = 0;
 		int rightSideTemp = 0;
 		startingPoint = 0;
-		
+
 		//first, find where road starts on both sides
 		leftSideFound = false;
 		rightSideFound = false;
 		for (int row = screenHeight - 22; row>startingHeight + heightOfArea; row--) {
-			
+
 			for (int column = roadMiddle/2; column>=0; column--) {
 				if (pixels[(screenWidth * (row)) + column] == 16777215) {
 					leftSideFound = true;
@@ -118,11 +130,11 @@ public class Steering {
 			leftSideFound = false;
 			rightSideFound = false;
 		}
-		
-		//Next, calculate the roadpoint 
-		
+
+		//Next, calculate the roadpoint
+
 		int count = 0;
-		
+
 		for (int i = startingPoint; i > startingHeight + heightOfArea; i--) {
 			for (int j = roadMiddle/2; j>=0; j--) {
 				if (pixels[screenWidth * i + j] == 16777215) {
@@ -136,7 +148,7 @@ public class Steering {
 					break;
 				}
 			}
-			
+
 			leadingMidPoints.get(count).x = roadMiddle / 2;
 			leadingMidPoints.get(count).y = i;
 			count++;
@@ -148,20 +160,20 @@ public class Steering {
 			//center to left
 			found = false;
 			leftPoints.get(count).y = i;
-			
+
 			for (int j = roadMiddle/2; j>=0; j--) {
 				if (pixels[screenWidth * i + j] == 16777215) {
 					leftPoints.get(count).x = j;
 					found = true;
 					break;
 				}
-				
+
 			}
 			if (!found) {
 				leftPoints.get(count).x = 0;
 			}
-			
-			
+
+
 			//center to right
 			found = false;
 			rightPoints.get(count).y = leftPoints.get(count).y;
@@ -175,15 +187,13 @@ public class Steering {
 			if (!found) {
 				rightPoints.get(count).x = cameraWidth;
 			}
-			
+
 			midPoints.get(count).x = roadMiddle/2;
 			midPoints.get(count).y = (leftPoints.get(count).y);
 			roadMiddle = (leftPoints.get(count).x + rightPoints.get(count).x);
 			count++;
 		}
 		*/
-		return midPoints;
-		
 	}
 	
 	public double curveSteepness(double turnAngle) {

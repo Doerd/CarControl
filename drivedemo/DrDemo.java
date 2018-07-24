@@ -633,7 +633,7 @@ public class DrDemo extends JFrame implements MouseListener {
     int tempDeg = testSteering.getDegreeOffset();
     theServos.servoWrite(SteerPin, ((tempDeg) + 90));
 
-    //
+    // Draw lines on road
     graf.setColor(Color.RED);
     //graf.fillRect(100, testSteering.startingPoint, 1, 1);
     if (DriverCons.D_DrawCurrent) {
@@ -642,21 +642,24 @@ public class DrDemo extends JFrame implements MouseListener {
     		}   
     	}
 
+    for (int i = 0; i < hi.size(); i++) {
+        if (DriverCons.D_DrawPredicted) {
+            graf.setColor(Color.BLUE);
+            graf.fillRect(hi.get(i).x, hi.get(i).y + edges.top, 5, 5);
+        }
+    }
+    if (DriverCons.D_DrawOnSides) {
+        for (int i = 0; i < testSteering.leftPoints.size(); i++) {
+            graf.setColor(Color.YELLOW);
+            graf.fillRect(testSteering.leftPoints.get(i).x + edges.left, testSteering.leftPoints.get(i).y + edges.top, 5, 5);
+        }
+        for (int i = 0; i < testSteering.rightPoints.size(); i++) {
+            graf.fillRect(testSteering.rightPoints.get(i).x + edges.left, testSteering.rightPoints.get(i).y + edges.top, 5, 5);
+        }
+    }
       // Draw steerPoint on screen
       graf.setColor(Color.CYAN);
       graf.fillRect(testSteering.steerPoint.x, testSteering.steerPoint.y, 7, 7);
-
-    for (int i = 0; i<hi.size(); i++) {
-    		if (DriverCons.D_DrawPredicted) {
-    			graf.setColor(Color.BLUE);
-    			graf.fillRect(hi.get(i).x, hi.get(i).y + edges.top, 5, 5);
-    		}
-    		if (DriverCons.D_DrawOnSides) {
-    			graf.setColor(Color.YELLOW);
-    			graf.fillRect(testSteering.leftPoints.get(i).x + edges.left, testSteering.leftPoints.get(i).y + edges.top, 5, 5);
-    			graf.fillRect(testSteering.rightPoints.get(i).x + edges.left, testSteering.rightPoints.get(i).y + edges.top, 5, 5);
-    		}
-    }
     
 
     
