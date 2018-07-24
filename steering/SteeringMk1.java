@@ -6,7 +6,7 @@ import apw3.TrakSim;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Steering {
+public class SteeringMk1 extends SteeringBase {
 
 	
 	public int startingPoint = 0;
@@ -23,81 +23,40 @@ public class Steering {
 	public List<Point> leadingMidPoints = new ArrayList<Point>();
 	public List<Point> leftPoints = new ArrayList<Point>();
 	public List<Point> rightPoints = new ArrayList<Point>();
-	
+
 	public List<Point> midPoints = new ArrayList<Point>();
 	Point origin = new Point(cameraWidth/2, screenHeight);
-	
+
 	Boolean found = false;
 	Boolean leftSideFound = false;
 	Boolean rightSideFound = false;
-	
-	private TrakSim theSim;
-	
+
 	private double integral, derivative, previousError;
 	private double kP = 0.65;
 	private double kI = 1;
 	private double kD = 1;
 	private boolean usePID = true;
 
-	public Steering(TrakSim theSim) {
+	@Override
+	public double curveSteepness(double turnAngle) {
+		return Math.abs(turnAngle)/(45);
+	}
+
+	@Override
+	public int drive(int pixels[]) {
+		findPoints(pixels);
+		averageMidpoints();
+		return getDegreeOffset();
+	}
+
+	public SteeringMk1() {
 		for (int i = 0; i<leadingMidPoints.size(); i++) {
 			leadingMidPoints.add(new Point(0, 0));
 		}
-		this.theSim = theSim;
 	}
-	
-	public List<Point> findPoints(int[] pixels) {
-        clearArrays();
-		int midX = cameraWidth / 2; // midX is where the car thinks is the middle of the road
-		double distanceAhead = 1.8; // how far ahead the car looks for road. (Eventually dynamic?)
 
+	private List<Point> findPoints(int[] pixels) {
 
-	    // Iterate through each row in camera
-	    for (int cameraRow = screenHeight - 50; cameraRow > (int)(screenHeight / distanceAhead); cameraRow--) {
-
-	    	// Find left point
-	    	for (int cameraColumn = midX; cameraColumn >= 0; cameraColumn--) {
-				if (!leftSideFound && pixels[(screenWidth * (cameraRow)) + cameraColumn] >= 16777215) {
-					leftSideFound = true;
-					leftPoints.add(new Point(cameraColumn, cameraRow));
-					break;
-				}
-			}
-
-			// Find Right point
-			for (int cameraColumn = midX; cameraColumn <= cameraWidth; cameraColumn++) {
-				if (!rightSideFound && pixels[(screenWidth * (cameraRow - 1)) + cameraColumn] >= 16777215) {
-					rightSideFound = true;
-					rightPoints.add(new Point(cameraColumn, cameraRow));
-					break;
-				}
-			}
-
-			// If two Lanes are found, average the two
-            if (rightSideFound && leftSideFound) {
-	            midX = (rightPoints.get(rightPoints.size() - 1).x + leftPoints.get(leftPoints.size() - 1).x) / 2;
-                midPoints.add(new Point(midX, cameraRow));
-
-			// If One lane is found, add midpoint 100 pixels towards middle.
-            } else if (rightSideFound) {
-	    		midX = rightPoints.get(rightPoints.size() - 1).x - 200;
-				midPoints.add(new Point(midX, cameraRow));
-			} else if (leftSideFound) {
-				midX = leftPoints.get(leftPoints.size() - 1).x + 200;
-				midPoints.add(new Point(midX, cameraRow));
-
-				// If no lanes are found, route towards found lines.
-            } else {
-	    		//FINISH LATER
-			}
-
-            rightSideFound = false;
-	        leftSideFound = false;
-        }
-
-		return midPoints;
-
-        /*
 		int roadMiddle = cameraWidth;
 		int leftSideTemp = 0;
 		int rightSideTemp = 0;
@@ -129,6 +88,8 @@ public class Steering {
 			}
 			leftSideFound = false;
 			rightSideFound = false;
+			return midPoints;
+
 		}
 
 		//Next, calculate the roadpoint
@@ -193,18 +154,16 @@ public class Steering {
 			roadMiddle = (leftPoints.get(count).x + rightPoints.get(count).x);
 			count++;
 		}
-		*/
-	}
-	
-	public double curveSteepness(double turnAngle) {
-		return Math.abs(turnAngle)/(45);
-	}
 
+		return midPoints;
+
+	}
 
 	/*
 	find the average point from the midpoints array
 	 */
-	public void averageMidpoints() {
+
+	private void averageMidpoints() {
         double tempY = 0;
         double tempX = 0;
         int tempCount = 0;
@@ -231,21 +190,15 @@ public class Steering {
     }
 
 
-    public int getDegreeOffset() {
+    private int getDegreeOffset() {
 	    int xOffset = origin.x - steerPoint.x;
 	    int yOffset = Math.abs(origin.y - steerPoint.y);
 	    System.out.println("\n\n\n" + myPID() + " " + xOffset + "\n\n\n");
 
 	    return (int)Math.round((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
     }
-
-    private void clearArrays() {
-	    leftPoints.clear();
-	    rightPoints.clear();
-	    midPoints.clear();
-    }
     
-    public double myPID() {
+    private double myPID() {
  
     		int error = origin.x - steerPoint.x;
     		

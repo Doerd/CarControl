@@ -16,11 +16,11 @@
  */
 package drivedemo;                                    // 2018 June 13
 
-import steering.Point;
-import steering.Steering;
+import steering.*;
 import apw3.*;
 import fakefirm.Arduino;
 import fly2cam.FlyCamera;
+import steering.Point;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,8 +30,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-
-import java.util.List;
 
 // import fly2cam.CameraBase;
 
@@ -72,7 +70,9 @@ public class DrDemo extends JFrame implements MouseListener {
   private Arduino theServos = null;
   private TrakSim theSim = null;
   private byte[] CamPix = null;
-  Steering testSteering = null;
+
+  private SteeringBase testSteering = null;
+
   private boolean StepMe = false, SimSpedFixt = DriverCons.D_FixedSpeed,
     CamActive = false;
 
@@ -624,37 +624,31 @@ public class DrDemo extends JFrame implements MouseListener {
         theImag = Int2BufImg(thePixels,ScrWi,ScrHi);}} //~if
     catch (Exception ex) {theImag = null;}
     BusyPaint = false;
-    
-    this.GetCameraImg();
-    List<Point> hi = testSteering.findPoints(thePixels);
+
+      this.GetCameraImg();
+
 
     // Steer between lines
-    testSteering.averageMidpoints();
-    int tempDeg = testSteering.getDegreeOffset();
-    theServos.servoWrite(SteerPin, ((tempDeg) + 90));
+    theServos.servoWrite(SteerPin, ((testSteering.drive(thePixels)) + 90));
 
     // Draw lines on road
     graf.setColor(Color.RED);
     //graf.fillRect(100, testSteering.startingPoint, 1, 1);
-    if (DriverCons.D_DrawCurrent) {
-    		for (int i = 0; i<testSteering.startingPoint - (testSteering.startingHeight + testSteering.heightOfArea); i++) {
-    			graf.fillRect(testSteering.leadingMidPoints.get(i).x, testSteering.leadingMidPoints.get(i).y +  + edges.top, 5, 5);
-    		}   
-    	}
 
-    for (int i = 0; i < hi.size(); i++) {
+    for (Point point : testSteering.midPoints) {
         if (DriverCons.D_DrawPredicted) {
             graf.setColor(Color.BLUE);
-            graf.fillRect(hi.get(i).x, hi.get(i).y + edges.top, 5, 5);
+            graf.fillRect(point.x, point.y + edges.top, 5, 5);
         }
     }
+
     if (DriverCons.D_DrawOnSides) {
-        for (int i = 0; i < testSteering.leftPoints.size(); i++) {
+        for (Point point : testSteering.leftPoints) {
             graf.setColor(Color.YELLOW);
-            graf.fillRect(testSteering.leftPoints.get(i).x + edges.left, testSteering.leftPoints.get(i).y + edges.top, 5, 5);
+            graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
         }
-        for (int i = 0; i < testSteering.rightPoints.size(); i++) {
-            graf.fillRect(testSteering.rightPoints.get(i).x + edges.left, testSteering.rightPoints.get(i).y + edges.top, 5, 5);
+        for (Point point : testSteering.rightPoints) {
+            graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
         }
     }
       // Draw steerPoint on screen
@@ -692,7 +686,11 @@ public class DrDemo extends JFrame implements MouseListener {
     simVideo = new SimCamera();
       theServos = new Arduino();
       theSim = new TrakSim();
-  	 testSteering = new Steering(theSim);
+      if (DriverCons.D_steeringVersion == 1) {
+          testSteering = new SteeringMk1();
+      } else if (DriverCons.D_steeringVersion == 2) {
+          testSteering = new SteeringMk2();
+      }
       if (LiveCam) theVideo = new FlyCamera();
     ViDied = 0;
     dunit = theServos.IsOpen();
