@@ -33,7 +33,7 @@ public class SteeringMk1 extends SteeringBase{
 	private double kD = 1;
 	private double weight = 1.0; // >1 = right lane, <1 = left lane
 	private int tempDeg = 0;
-	private boolean weightLane = true;
+	private boolean weightLane = false;
 	private boolean usePID = true;
 
 	private long averageLuminance = 0;
@@ -120,9 +120,15 @@ public class SteeringMk1 extends SteeringBase{
 				}
 			}
 
-//			if (/*Math.abs(tempDeg) < 25*/ true){weight = 1; weightLane = false;} // Need a way to determine if in the middle of a curve vs offset in a straightaway
-//			else if (tempDeg > 0) {weight = 1.25; weightLane = true;}
-//			else if (tempDeg < 0) {weight = 0.75; weightLane = true;}
+			if(weightLane && midPoints != null){
+				averageMidpoints();
+				checkPointsAhead(pixels);
+				if(turnAhead){
+					if(turnRightAhead) weight = 1.25;
+					else weight = 0.85;
+				}
+				else weight = 1;
+			}
 
 			leadingMidPoints[count].x = weightLane?( (int) ((double) roadMiddle / 2.0 * weight)):roadMiddle/2;
 			leadingMidPoints[count].y = i;
@@ -169,6 +175,67 @@ public class SteeringMk1 extends SteeringBase{
 			roadMiddle = (leftPoints.get(count).x + rightPoints.get(count).x);
 			count++;
 		}
+	}
+	
+	Point avgPointAhead(int[] pixels){ // Look ahead in the road to see if there is a turn (for following the racing curve)
+		int roadMiddle = cameraWidth;
+		int leftSideTemp = 0;
+		int rightSideTemp = 0;
+		boolean foundTurn = false;
+		startingPoint = 0;
+
+		//Next, calculate the roadpoint
+
+		int count = 0;
+
+		for (int i = startingHeight; i > screenHeight/2; i--) {
+			for (int j = roadMiddle/2; j>=0; j--) {
+				if (pixels[screenWidth * i + j] == 16777215) {
+					leftSideTemp = j;
+					break;
+				}
+			}
+			for (int j = roadMiddle/2; j<cameraWidth; j++) {
+				if (pixels[screenWidth * i + j] == 16777215) {
+					rightSideTemp = j;
+					break;
+				}
+			}
+			pointsAhead[count].x = roadMiddle/2;
+			pointsAhead[count].y = i;
+			count++;
+			roadMiddle = leftSideTemp + rightSideTemp;
+		}
+
+		double tempY = 0;
+		double tempX = 0;
+		int avgX = 0;
+		int avgY = 0;
+		int tempCount = 0;
+
+		for (int i = 0; i<pointsAhead.length; i++) {
+			Point point = new Point (leadingMidPoints[i].x, leadingMidPoints[i].y);
+			tempX += point.x;
+			tempY += point.y;
+			tempCount++;
+		}
+
+		avgX = (int)(tempX / tempCount);
+		avgY = (int)(tempY / tempCount);
+
+		Point avgPoint = new Point(avgX,avgY);
+
+		return avgPoint;
+	}
+
+	void checkPointsAhead(int[] pixels){
+		Point ahead = avgPointAhead(pixels);
+		if(Math.abs(ahead.x-origin.x) >= Math.abs((steerPoint.x-origin.x)/(steerPoint.y-origin.y)*(ahead.y-origin.y))){
+			turnAhead = true;
+			if(ahead.x-origin.x > 0) turnRightAhead = true;
+			else turnRightAhead = false;
+		}
+		else turnAhead = false;
 	}
 
 	List<Double> posLog = new ArrayList<Double>();
