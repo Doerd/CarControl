@@ -2,9 +2,10 @@ package com.apw.pedestrians.blobdetect;
 
 import com.aparapi.Kernel;
 import com.aparapi.Range;
-import group1.IImage;
-import group1.IPixel;
-import group1.Pixel;
+import com.apw.pedestrians.image.Color;
+import com.apw.pedestrians.image.IImage;
+import com.apw.pedestrians.image.IPixel;
+import com.apw.pedestrians.image.Pixel;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -37,7 +38,7 @@ public class PrimitiveBlobDetection implements IBlobDetection {
         int[] colors = new int[width * height];
 
         for (int i = 0; i < colors.length; i++) {
-            colors[i] = pixels[i / width][i % width].getColor();
+            colors[i] = pixels[i / width][i % width].getColor().ordinal();
         }
 
         int bipSize = width * height * BIP_NUMFIELDS;
@@ -254,14 +255,14 @@ public class PrimitiveBlobDetection implements IBlobDetection {
 
         int bipColor = bips[bip + BIP_COLOR];
         if (unusedBlobs.isEmpty()) {
-            return new Blob(bipWidth, bipHeight, bips[bip + BIP_LEFT], bips[bip + BIP_TOP], new Pixel(bipColor));
+            return new Blob(bipWidth, bipHeight, bips[bip + BIP_LEFT], bips[bip + BIP_TOP], new Pixel(Color.values()[bipColor]));
         } else {
             Blob blob = unusedBlobs.pop();
             blob.width = bipWidth;
             blob.height = bipHeight;
             blob.x = bips[bip + BIP_LEFT];
             blob.y = bips[bip + BIP_TOP];
-            blob.color = new Pixel(bipColor);
+            blob.color = new Pixel(Color.values()[bipColor]);
             return blob;
         }
     }
