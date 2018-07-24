@@ -21,6 +21,7 @@ public class SteeringMk1 extends SteeringBase{
 	private int screenHeight = DriverCons.D_ImHi;
 
 	public Point[] leadingMidPoints = new Point[startingHeight + heightOfArea];
+	public Point[] pointsAhead = new Point[startingHeight-(screenHeight/2)];
 	Point origin = new Point(cameraWidth/2, screenHeight);
 
 	Boolean found = false;
@@ -35,6 +36,8 @@ public class SteeringMk1 extends SteeringBase{
 	private int tempDeg = 0;
 	private boolean weightLane = false;
 	private boolean usePID = true;
+	private boolean turnAhead = false;
+	private boolean turnRightAhead = false;
 
 	private long averageLuminance = 0;
 
