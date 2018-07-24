@@ -111,7 +111,7 @@ public class Arduino { // Adapted to Java from arduino.cs ... (FakeFirmata)
   * [For] controlling [a] servo.
   *
   * @param  pin    Servo output pin.
-  * @param  value  Servo angle from 0 to 180.
+  * @param  angle  Servo angle from 0 to 180.
   */
   public void servoWrite(int pin, int angle) {
     byte[] msg = new byte[3];

@@ -1,4 +1,4 @@
-package Steering;
+package steering;
 
 public class Point {
 	public int x;

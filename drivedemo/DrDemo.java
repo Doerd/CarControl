@@ -16,8 +16,8 @@
  */
 package drivedemo;                                    // 2018 June 13
 
-import Steering.Point;
-import Steering.Steering;
+import steering.Point;
+import steering.Steering;
 import apw3.*;
 import fakefirm.Arduino;
 import fly2cam.FlyCamera;
@@ -30,6 +30,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+
+import java.util.List;
 
 // import fly2cam.CameraBase;
 
@@ -624,35 +626,35 @@ public class DrDemo extends JFrame implements MouseListener {
     BusyPaint = false;
     
     this.GetCameraImg();
-    Point[] hi = testSteering.findPoints(thePixels);
+    List<Point> hi = testSteering.findPoints(thePixels);
 
     // Steer between lines
     testSteering.averageMidpoints();
     int tempDeg = testSteering.getDegreeOffset();
-    theServos.servoWrite(SteerPin, (int)((tempDeg) + 90));
-    
+    theServos.servoWrite(SteerPin, ((tempDeg) + 90));
+
+    //
     graf.setColor(Color.RED);
     //graf.fillRect(100, testSteering.startingPoint, 1, 1);
-    if (DriverCons.D_DrawCurrent == true) {
+    if (DriverCons.D_DrawCurrent) {
     		for (int i = 0; i<testSteering.startingPoint - (testSteering.startingHeight + testSteering.heightOfArea); i++) {
-    			graf.fillRect(testSteering.leadingMidPoints[i].x, testSteering.leadingMidPoints[i].y +  + edges.top, 5, 5);
+    			graf.fillRect(testSteering.leadingMidPoints.get(i).x, testSteering.leadingMidPoints.get(i).y +  + edges.top, 5, 5);
     		}   
     	}
 
       // Draw steerPoint on screen
       graf.setColor(Color.CYAN);
       graf.fillRect(testSteering.steerPoint.x, testSteering.steerPoint.y, 7, 7);
-    
-    
-    for (int i = 0; i<hi.length; i++) {
-    		if (DriverCons.D_DrawPredicted == true) {
+
+    for (int i = 0; i<hi.size(); i++) {
+    		if (DriverCons.D_DrawPredicted) {
     			graf.setColor(Color.BLUE);
-    			graf.fillRect(hi[i].x, hi[i].y + edges.top, 5, 5);
+    			graf.fillRect(hi.get(i).x, hi.get(i).y + edges.top, 5, 5);
     		}
-    		if (DriverCons.D_DrawOnSides == true) {
+    		if (DriverCons.D_DrawOnSides) {
     			graf.setColor(Color.YELLOW);
-    			graf.fillRect(testSteering.leftPoints[i].x + edges.left, testSteering.leftPoints[i].y + edges.top, 5, 5);
-    			graf.fillRect(testSteering.rightPoints[i].x + edges.left, testSteering.rightPoints[i].y + edges.top, 5, 5);
+    			graf.fillRect(testSteering.leftPoints.get(i).x + edges.left, testSteering.leftPoints.get(i).y + edges.top, 5, 5);
+    			graf.fillRect(testSteering.rightPoints.get(i).x + edges.left, testSteering.rightPoints.get(i).y + edges.top, 5, 5);
     		}
     }
     

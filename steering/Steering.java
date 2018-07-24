@@ -1,7 +1,10 @@
-package Steering;
+package steering;
 
 import apw3.DriverCons;
 import apw3.TrakSim;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Steering {
 
@@ -9,6 +12,8 @@ public class Steering {
 	public int startingPoint = 0;
 	
 	//767 is white
+
+    private long averageLuminance = 0;
 
 	public int heightOfArea = 32;
 	public int startingHeight = 272;
@@ -18,11 +23,11 @@ public class Steering {
 	private int screenHeight = DriverCons.D_ImHi;
 	public Point steerPoint = new Point(0, 0);
 
-	public Point[] leadingMidPoints = new Point[startingHeight + heightOfArea];
-	public Point[] leftPoints = new Point[heightOfArea];
-	public Point[] rightPoints = new Point[heightOfArea];
+	public List<Point> leadingMidPoints = new ArrayList<Point>();
+	public List<Point> leftPoints = new ArrayList<Point>();
+	public List<Point> rightPoints = new ArrayList<Point>();
 	
-	public Point[] midPoints = new Point[heightOfArea];
+	public List<Point> midPoints = new ArrayList<Point>();
 	Point origin = new Point(cameraWidth/2, screenHeight);
 	
 	Boolean found = false;
@@ -38,18 +43,49 @@ public class Steering {
 	private boolean usePID = true;
 
 	public Steering(TrakSim theSim) {
-		for (int i = 0; i<heightOfArea; i++) {
-			leftPoints[i] = new Point(0, 0);
-			rightPoints[i] = new Point(0, 0);
-			midPoints[i] = new Point(0, 0);
-		}
-		for (int i = 0; i<leadingMidPoints.length; i++) {
-			leadingMidPoints[i] = new Point(0, 0);
+		for (int i = 0; i<leadingMidPoints.size(); i++) {
+			leadingMidPoints.add(new Point(0, 0));
 		}
 		this.theSim = theSim;
 	}
 	
-	public Point[] findPoints(int[] pixels) {
+	public List<Point> findPoints(int[] pixels) {
+	    int count = 0;
+        clearArrays();
+
+        averageLuminance = 0;
+        for (int pixel = 0; pixel < pixels.length; pixel++) {
+            if (pixel % screenWidth < cameraWidth) {
+                averageLuminance += pixels[pixel];
+            }
+            count++;
+        }
+        averageLuminance = (long)(averageLuminance / count * 1.5);
+
+	    int midX = cameraWidth / 2;
+	    for (int cameraRow = screenHeight - 20; cameraRow > screenHeight / 2; cameraRow--) {
+	        for (int cameraColumn = midX; cameraColumn < cameraWidth; cameraColumn++) {
+	            if (!rightSideFound && pixels[(screenWidth * (cameraRow - 1)) + cameraColumn] >= averageLuminance) {
+	                rightSideFound = true;
+	                rightPoints.add(new Point(cameraColumn, cameraRow));
+                }
+                if (!leftSideFound && pixels[(screenWidth * (cameraRow)) - cameraColumn] >= averageLuminance) {
+	                leftSideFound = true;
+                    leftPoints.add(new Point(cameraColumn, cameraRow));
+                }
+            }
+            if (rightSideFound && leftSideFound) {
+	            midX = (rightPoints.get(rightPoints.size() - 1).x + leftPoints.get(leftPoints.size() - 1).x) / 2;
+                midPoints.add(new Point(midX, cameraRow));
+            } else if (rightSideFound || leftSideFound) {
+	            //FINISH LATER
+            }
+
+            rightSideFound = false;
+	        leftSideFound = false;
+        }
+
+        /*
 		int roadMiddle = cameraWidth;
 		int leftSideTemp = 0;
 		int rightSideTemp = 0;
@@ -58,23 +94,23 @@ public class Steering {
 		//first, find where road starts on both sides
 		leftSideFound = false;
 		rightSideFound = false;
-		for (int i = screenHeight - 22; i>startingHeight + heightOfArea; i--) {
+		for (int row = screenHeight - 22; row>startingHeight + heightOfArea; row--) {
 			
-			for (int j = roadMiddle/2; j>=0; j--) {
-				if (pixels[(screenWidth * (i)) + j] == 16777215) {
+			for (int column = roadMiddle/2; column>=0; column--) {
+				if (pixels[(screenWidth * (row)) + column] == 16777215) {
 					leftSideFound = true;
 					break;
 				}
 			}
-			for (int j = roadMiddle/2; j<cameraWidth; j++) {
-				if (pixels[(screenWidth * (i)) + j] == 16777215) {
+			for (int column = roadMiddle/2; column<cameraWidth; column++) {
+				if (pixels[(screenWidth * (row)) + column] == 16777215) {
 					rightSideFound = true;
 					break;
 				}
 			}
 
 			if (leftSideFound && rightSideFound) {
-				startingPoint = i;
+				startingPoint = row;
 				leftSideFound = false;
 				rightSideFound = false;
 				break;
@@ -101,8 +137,8 @@ public class Steering {
 				}
 			}
 			
-			leadingMidPoints[count].x = roadMiddle / 2;
-			leadingMidPoints[count].y = i;
+			leadingMidPoints.get(count).x = roadMiddle / 2;
+			leadingMidPoints.get(count).y = i;
 			count++;
 			roadMiddle = leftSideTemp + rightSideTemp;
 		}
@@ -111,40 +147,41 @@ public class Steering {
 		for (int i = startingHeight + heightOfArea; i>startingHeight; i--) {
 			//center to left
 			found = false;
-			leftPoints[count].y = i;
+			leftPoints.get(count).y = i;
 			
 			for (int j = roadMiddle/2; j>=0; j--) {
 				if (pixels[screenWidth * i + j] == 16777215) {
-					leftPoints[count].x = j;
+					leftPoints.get(count).x = j;
 					found = true;
 					break;
 				}
 				
 			}
 			if (!found) {
-				leftPoints[count].x = 0;
+				leftPoints.get(count).x = 0;
 			}
 			
 			
 			//center to right
 			found = false;
-			rightPoints[count].y = leftPoints[count].y;
+			rightPoints.get(count).y = leftPoints.get(count).y;
 			for (int j = roadMiddle/2; j<cameraWidth; j++) {
 				if (pixels[screenWidth * i + j] == 16777215) {
-					rightPoints[count].x = j;
+					rightPoints.get(count).x = j;
 					found = true;
 					break;
 				}
 			}
 			if (!found) {
-				rightPoints[count].x = cameraWidth;
+				rightPoints.get(count).x = cameraWidth;
 			}
 			
-			midPoints[count].x = roadMiddle/2;
-			midPoints[count].y = (leftPoints[count].y);
-			roadMiddle = (leftPoints[count].x + rightPoints[count].x);
+			midPoints.get(count).x = roadMiddle/2;
+			midPoints.get(count).y = (leftPoints.get(count).y);
+			roadMiddle = (leftPoints.get(count).x + rightPoints.get(count).x);
 			count++;
 		}
+		*/
 		return midPoints;
 		
 	}
@@ -164,17 +201,17 @@ public class Steering {
 
         // Sum the x's and the y's
 	    for (int i = 0; i<startingPoint - (startingHeight + heightOfArea); i++) {
-	    		Point point = new Point (leadingMidPoints[i].x, leadingMidPoints[i].y);
+	    		Point point = new Point (leadingMidPoints.get(i).x, leadingMidPoints.get(i).y);
             tempX += point.x;
             tempY += point.y;
             tempCount++;
         }
 	    if (tempCount == 0) {
-		    for (int i = 0; i<midPoints.length; i++) {
-	    			Point point = new Point (midPoints[i].x, midPoints[i].y);
-	    			tempX += point.x;
-	    			tempY += point.y;
-	    			tempCount++;
+		    for (int i = 0; i<midPoints.size(); i++) {
+                Point point = new Point (midPoints.get(i).x, midPoints.get(i).y);
+                tempX += point.x;
+                tempY += point.y;
+                tempCount++;
 		    }
 	    }
 
@@ -190,6 +227,12 @@ public class Steering {
 	    System.out.println("\n\n\n" + myPID() + " " + xOffset + "\n\n\n");
 
 	    return (int)Math.round((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
+    }
+
+    private void clearArrays() {
+	    leftPoints.clear();
+	    rightPoints.clear();
+	    midPoints.clear();
     }
     
     public double myPID() {
