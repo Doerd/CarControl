@@ -38,7 +38,7 @@ public class DriverCons { // TrakSim constant parameters
     D_DoCloseUp = true,     // T: show close-up map if there is room
     D_RampServos = true,   // T: servos take time to arrive at setting
     D_TrakNoPix = false,    // T: draw track only, omit artifacts & trees
-    D_UseTexTrak = false,    // T: use text file to build track to drive
+    D_UseTexTrak = true,    // T: use text file to build track to drive
     D_Reversible = false,   // T: allow reverse (untested)
     D_StartInCalibrate = false, // T: use this to calibrate servo limits
     D_Log_Draw = false, D_Log_Log = false, D_Fax_Log = false,
@@ -50,7 +50,7 @@ public class DriverCons { // TrakSim constant parameters
     D_RampA = 300,     // Initial orient'n for car, c-wise degrees from north
     D_Zoom35 = 35,     // 35mm-equivalent focal length for "camera"
     D_BayTile = 1,     // Bayer8 tiling code (RG/GB) as defined by Pt.Grey
-    D_FrameTime = 120, // =5/fps, nominal frame rate for camera (must >= 20ms)
+    D_FrameTime = 200, // =5/fps, nominal frame rate for camera (must >= 20ms)
     D_nServoTests = 5, // number of times to run through test (1: no ESC)
     D_ServoMsgPos = 200*0x10000+0, // position of warning in image file,
       D_ServoMsgTL = 40*0x10001, D_ServoMsgSiz = 40*0x10000+80, // posn on screen
@@ -72,7 +72,7 @@ public class DriverCons { // TrakSim constant parameters
     D_xTrLiteTime = 3, // 2^x seconds red time = green time +2secs yellow
     D_Crummy = 255,    // (power of 2) size of BreadCrumbs list for map display
     D_CheckerBd = 1,   // (power of 2) =1 to checker 1x1m, =2 for 2x2, =0 off
-    D_steeringVersion = 1; // Which Version of steering to use
+    D_steeringVersion = 2; // Which Version of steering to use
 
   public static final double D_TurnRadius = 7.0, // nom. meters in park coords
       // measured from midline fully cramped, servo position = 0/180

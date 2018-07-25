@@ -1,27 +1,12 @@
 package steering;
 
-import apw3.DriverCons;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class SteeringMk2 extends SteeringBase {
 
-    private int cameraWidth = 640;
-    private int screenHeight = DriverCons.D_ImHi;
 
-    private Point origin = new Point(cameraWidth / 2, screenHeight);
 
     private Boolean leftSideFound = false;
     private Boolean rightSideFound = false;
-
-    private double integral, previousError;
-
-    @Override
-    public double curveSteepness(double turnAngle) {
-        return Math.abs(turnAngle) / (45);
-    }
 
     @Override
     public int drive(int pixels[]) {
@@ -65,11 +50,13 @@ public class SteeringMk2 extends SteeringBase {
 
                 // If One lane is found, add midpoint 100 pixels towards middle.
             } else if (rightSideFound) {
-                midX = rightPoints.get(rightPoints.size() - 1).x - 200;
-                midPoints.add(new Point(midX, cameraRow));
+                double lastY = rightPoints.get(rightPoints.size() - 1).y;
+                int lastX = rightPoints.get(rightPoints.size() - 1).x;
+                //midPoints.add(new Point((int)Math.round(lastX - ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2))), cameraRow));
             } else if (leftSideFound) {
-                midX = leftPoints.get(leftPoints.size() - 1).x + 200;
-                midPoints.add(new Point(midX, cameraRow));
+                double lastY = leftPoints.get(leftPoints.size() - 1).y;
+                int lastX = leftPoints.get(leftPoints.size() - 1).x;
+                //midPoints.add(new Point((int)Math.round(lastX + ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2))), cameraRow));
 
                 // If no lanes are found, route towards found lines.
             } else {
@@ -100,37 +87,6 @@ public class SteeringMk2 extends SteeringBase {
 
         steerPoint.x = (int) (tempX / midPoints.size());
         steerPoint.y = (int) (tempY / midPoints.size());
-
-    }
-
-    private int getDegreeOffset() {
-        int xOffset = origin.x - steerPoint.x;
-        int yOffset = Math.abs(origin.y - steerPoint.y);
-        System.out.println("\n\n\n" + myPID() + " " + xOffset + "\n\n\n");
-
-        return (int) Math.round((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
-    }
-
-    private double myPID() {
-
-        int error = origin.x - steerPoint.x;
-        double kP = 0.65;
-        double kI = 1;
-        double kD = 1;
-        double derivative;
-
-
-        integral += error * DriverCons.D_FrameTime;
-        if (error == 0 || (Math.abs(error - previousError) == (Math.abs(error) + Math.abs(previousError)))) {
-            integral = 0;
-        }
-        if (Math.abs(integral) > 100) {
-            integral = 0;
-        }
-
-        derivative = (error - previousError) / DriverCons.D_FrameTime;
-        previousError = error;
-        return error * kP + integral * kI + derivative * kD;
 
     }
 

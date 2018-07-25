@@ -1,41 +1,25 @@
 package steering;
 
 import apw3.DriverCons;
-import apw3.TrakSim;
 import java.util.List;
 import java.util.ArrayList;
 
 public class SteeringMk1 extends SteeringBase{
 
 
-	public int startingPoint = 0;
+	private int startingPoint = 0;
 
-
-	//767 is white
-
-	public int heightOfArea = 32;
-	public int startingHeight = 272;
+	private int heightOfArea = 32;
+	private int startingHeight = 272;
 
 	private int screenWidth = 912;
 	private int cameraWidth = 640;
 	private int screenHeight = DriverCons.D_ImHi;
 
-	public Point[] leadingMidPoints = new Point[startingHeight + heightOfArea];
-	public Point[] pointsAhead = new Point[startingHeight-(screenHeight/2)];
-	Point origin = new Point(cameraWidth/2, screenHeight);
-
-	Boolean found = false;
-	Boolean leftSideFound = false;
-	Boolean rightSideFound = false;
-
-	private double integral, derivative, previousError;
-	private double kP = 0.85;
-	private double kI = 1;
-	private double kD = 1;
+	private Point[] leadingMidPoints = new Point[startingHeight + heightOfArea];
+	private Point[] pointsAhead = new Point[startingHeight-(screenHeight/2)];
 	private double weight = 1.0; // >1 = right lane, <1 = left lane
-	private int tempDeg = 0;
 	private boolean weightLane = false;
-	private boolean usePID = true;
 	private boolean turnAhead = false;
 	private boolean turnRightAhead = false;
 
@@ -61,6 +45,9 @@ public class SteeringMk1 extends SteeringBase{
 	}
 
 	public void findPoints(int[] pixels) {
+		Boolean found;
+		Boolean leftSideFound;
+		Boolean rightSideFound;
 		int roadMiddle = cameraWidth;
 		int leftSideTemp = 0;
 		int rightSideTemp = 0;
@@ -270,11 +257,6 @@ public class SteeringMk1 extends SteeringBase{
 		}
 	}
 
-	public double curveSteepness(double turnAngle) {
-		return Math.abs(turnAngle)/(45);
-	}
-
-
 	/*
 	find the average point from the midpoints array
 	 */
@@ -310,35 +292,6 @@ public class SteeringMk1 extends SteeringBase{
 
 		steerPoint.x = (int)(tempX / tempCount+weightCount);
 		steerPoint.y = (int)(tempY / tempCount);
-
-	}
-
-
-	public int getDegreeOffset() {
-		int xOffset = origin.x - steerPoint.x;
-		int yOffset = Math.abs(origin.y - steerPoint.y);
-
-		tempDeg = (int)((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
-
-		System.out.println("\n\n\n" + tempDeg + " " + myPID() + "\n\n\n");
-		return (int)((Math.atan2(-(((usePID) ? (curveSteepness(tempDeg)>0.3) : false) ? myPID() : xOffset), yOffset)) * (180 / Math.PI));
-	}
-
-	public double myPID() {
-
-		int error = origin.x - steerPoint.x;
-
-		integral += error * DriverCons.D_FrameTime;
-		if (error == 0 || (Math.abs(error-previousError)==(Math.abs(error)+Math.abs(previousError)))) {
-			integral = 0;
-		}
-		if (Math.abs(integral) > 100) {
-			integral = 0;
-		}
-
-		derivative = (error - previousError)/DriverCons.D_FrameTime;
-		previousError = error;
-		return error*kP + integral*kI + derivative*kD;
 
 	}
 }
