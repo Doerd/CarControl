@@ -23,9 +23,9 @@ public class Arduino { // Adapted to Java from arduino.cs ... (FakeFirmata)
             MDB_msk = MAX_DATA_BYTES - 1;
     public static final int SET_PIN_MODE = 0xF4;
     // set a pin to INPUT/OUTPUT/PWM/etc
-    public static final int DIGITAL_MESSAGE = 0x90;
+    public static final int DIGITAL_MESSAGE = 0x90;//144
     // send data for a digital port
-    public static final int ANALOG_MESSAGE = 0xE0;
+    public static final int ANALOG_MESSAGE = 0xE0;//240
     // Use these selectors to set listeners..
     public static final int REPORT_ANALOG = 0xC0;
     // enable analog input by pin +
@@ -84,9 +84,9 @@ public class Arduino { // Adapted to Java from arduino.cs ... (FakeFirmata)
     public void pinMode(int pin, byte mode) {
         byte[] msg = new byte[3];
         if (SpeakEasy) System.out.println("F%%F/pinMode +" + pin + " = " + mode);
-        msg[0] = (byte) (SET_PIN_MODE);
-        msg[1] = (byte) (pin);
-        msg[2] = (byte) (mode);
+        msg[0] = (byte) (SET_PIN_MODE); //What to do
+        msg[1] = (byte) (pin); //Pin to use
+        msg[2] = (byte) (mode); //Mode
         try {
             surrealPort.writeBytes(msg);
             if (DoMore != null) DoMore.SendBytes(msg, 3);
@@ -124,16 +124,16 @@ public class Arduino { // Adapted to Java from arduino.cs ... (FakeFirmata)
 
     /**
      * [For] controlling [a] servo.
+     * Maximum input of 1 byte numbers.
      *
-     * @param pin Servo output pin.
+     * @param pin Servo output pin. Port 9 for steering
      */
     public void servoWrite(int pin, int angle) {
+    	
         byte[] msg = new byte[3];
-//ABCDE
-//        if (SpeakEasy) System.out.println("F%%F/servoWrite +" + pin + " = " + angle);
-        msg[0] = (byte) (ANALOG_MESSAGE | (pin & 0x0F));
-        msg[1] = (byte) (angle & 0x7F);
-        msg[2] = (byte) (angle >> 7);
+        msg[0] = (byte) (ANALOG_MESSAGE); //Type of message. Likely unneeded
+        msg[1] = (byte) (pin); //pin
+        msg[2] = (byte) (angle); //angle
         try {
             surrealPort.writeBytes(msg);
             if (DoMore != null) DoMore.SendBytes(msg, 3);
