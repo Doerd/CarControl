@@ -1,40 +1,53 @@
 package steering;
 
 import apw3.DriverCons;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Steering base is the base code for all child steering objects.
+ *
+ * @author kevin
+ * @author carl
+ * @author nathan
+ */
 public abstract class SteeringBase implements Steerable {
-    public Point steerPoint = new Point(0, 0);
-
+    final int cameraWidth = 640; // How wide the camera is (pixels)
+    final int screenHeight = DriverCons.D_ImHi; // How tall the camera is (pixels)
+    final int screenWidth = 912; // How wide the screen is (including maps)
+    private double integral, // The integral of the
+            previousError;  // PID
+    Point origin = new Point(cameraWidth / 2, screenHeight);
+    public Point steerPoint = new Point(0, 0); // Point to where the car attempts to steer towards
     public List<Point> leftPoints = new ArrayList<>();
     public List<Point> rightPoints = new ArrayList<>();
     public List<Point> midPoints = new ArrayList<>();
-    public int cameraWidth = 640;
-    public int screenHeight = DriverCons.D_ImHi;
-    private double integral, previousError;
-
-    public int startTarget = 0;
-    public int endTarget = 0;
-
-
-    public Point origin = new Point(cameraWidth / 2, screenHeight);
 
     @Override
     public double curveSteepness(double turnAngle) {
         return Math.abs(turnAngle) / (45);
     }
 
-    public int getDegreeOffset() {
+    /**
+     * Gets the degree offset between the origin (center bottom of the screen), and the steerPoint (The point
+     * where the car is attempting to steer towards).
+     *
+     * @return the degreeOffset, as a integer.
+     */
+    int getDegreeOffset() {
         int xOffset = origin.x - steerPoint.x;
         int yOffset = Math.abs(origin.y - steerPoint.y);
-        System.out.println("\n\n\n" + myPID() + " " + xOffset + "\n\n\n");
 
+        // Round the arctan of the xOffest, and yOffset
         return (int) Math.round((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
     }
 
-    public double myPID() {
+    /**
+     * Calculate the PID to help smooth out the car path.
+     *
+     * @return The Pid for the car
+     */
+    private double myPID() {
 
         int error = origin.x - steerPoint.x;
         double kP = 0.65;
@@ -57,7 +70,10 @@ public abstract class SteeringBase implements Steerable {
 
     }
 
-    public void findPoints(int[] pixels) {
-
-    }
+    /**
+     * Find, and process the image data to assign Points to leftPoints, rightPoints, and midPoints.
+     *
+     * @param pixels An array of pixels
+     */
+    public abstract void findPoints(int[] pixels);
 }

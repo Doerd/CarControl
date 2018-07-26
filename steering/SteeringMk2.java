@@ -6,26 +6,41 @@ import fakefirm.Arduino;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * <p>Version 2 of steering. This version improves center detection by adding the
+ * ability to follow a single lane. This makes crashing much rarer, as well as better
+ * navigating tight corners.</p>
+ *
+ * @author kevin
+ * @author carl
+ * @author nathan
+ */
 public class SteeringMk2 extends SteeringBase {
 
-    private Boolean leftSideFound = false;
-    private Boolean rightSideFound = false;
-
     private final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-    private int initialDelay = 20;
     private int SteerPin;
-    private Arduino theServos = null;
-    private int averageOffset = 0;
-    private int framesCompiled = 0;
+    private boolean haveNewPixels = false;
+    private boolean leftSideFound = false;
+    private boolean rightSideFound = false;
+    private Arduino theServos; // The servo to write to
 
-    boolean haveNewPixels = false;
-
+    /**
+     * Constructor to Start image detection thread, and assign values
+     * @param steerPin the pin for servoWrite
+     * @param theServos the servo to be writing to
+     */
     public SteeringMk2(int steerPin, Arduino theServos) {
         this.SteerPin = steerPin;
         this.theServos = theServos;
-        executor.scheduleAtFixedRate(() -> makeTurnAdjustment(), initialDelay, 50, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(this::makeTurnAdjustment, 20, 50, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * not currently being used.
+     * @param pixels the array of pixels.
+     * @return Degree to drive to
+     */
     @Override
     public int drive(int pixels[]) {
         findPoints(pixels);
@@ -33,14 +48,19 @@ public class SteeringMk2 extends SteeringBase {
         return getDegreeOffset();
     }
 
+    /**
+     * This gets called every 50ms, writes to the car servos. (drives the car)
+     */
     private void makeTurnAdjustment() {
         if (haveNewPixels) {
             theServos.servoWrite(SteerPin, getDegreeOffset() + 90);
-            averageOffset = 0;
-            framesCompiled = 0;
         }
     }
 
+    /**
+     * Process the camera image, and fill leftPoints, rightPoints, and midPoints.
+     * @param pixels An array of pixels
+     */
     @Override
     public void findPoints(int[] pixels) {
         clearArrays();
@@ -79,12 +99,12 @@ public class SteeringMk2 extends SteeringBase {
             } else if (rightSideFound) {
                 double lastY = rightPoints.get(rightPoints.size() - 1).y;
                 int lastX = rightPoints.get(rightPoints.size() - 1).x;
-                midX = (int)Math.round(lastX - ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2)));
+                midX = (int) Math.round(lastX - ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2)));
                 midPoints.add(new Point(midX, cameraRow));
             } else if (leftSideFound) {
                 double lastY = leftPoints.get(leftPoints.size() - 1).y;
                 int lastX = leftPoints.get(leftPoints.size() - 1).x;
-                midX = (int)Math.round(lastX + ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2)));
+                midX = (int) Math.round(lastX + ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2)));
                 midPoints.add(new Point(midX, cameraRow));
 
                 // If no lanes are found, route towards found lines.
@@ -100,16 +120,22 @@ public class SteeringMk2 extends SteeringBase {
         haveNewPixels = true;
     }
 
+    /**
+     * Clear all the arrays
+     */
     private void clearArrays() {
         leftPoints.clear();
         rightPoints.clear();
         midPoints.clear();
     }
 
+    /**
+     * Average the midpoints to create the steerPoint.
+     */
     private void averagePoints() {
 
-        startTarget = (int)(midPoints.size() * 0.5);
-        endTarget = (int)(midPoints.size() * 0.7);
+        int startTarget = (int) (midPoints.size() * 0.5);
+        int endTarget = (int) (midPoints.size() * 0.7);
 
         double ySum = 0;
         double xSum = 0;
@@ -122,10 +148,6 @@ public class SteeringMk2 extends SteeringBase {
 
         steerPoint.x = (int) (xSum / (endTarget - startTarget));
         steerPoint.y = (int) (ySum / (endTarget - startTarget));
-
-        //averageOffset += getDegreeOffset();
-        //framesCompiled++;
-        //System.out.println("AVERAGE OFFSET: " + (averageOffset / framesCompiled));
     }
 
 }
