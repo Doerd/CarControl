@@ -28,7 +28,7 @@ public class MonochromeRasterKernel extends Kernel {
     }
 
     /**
-     * Constructs an <code>MonochromeRasterKernel</code> Aparapi {@link com.aparapi.opencl.OpenCL OpenCL} kernel.
+     * Sets all member variables of <code>MonochromeRasterKernel</code>.
      *
      * @param bayer Array of bayer arranged rgb colors
      * @param mono  Monochrome copy of the bayer array
@@ -55,10 +55,9 @@ public class MonochromeRasterKernel extends Kernel {
     @Override
     public void run() {
 
-        // these might not be accurate
-        int rows = getGlobalId(1);
-        int cols = getGlobalId(0);
+        int rows = getGlobalId(0);
+        int cols = getGlobalId(1);
 
-        mono[rows * ncols + cols] = bayer[rows * ncols * 2 + cols * 2 + 1];
+        mono[rows * ncols + cols] = (byte) ((((int) bayer[(rows * ncols * 2 + cols) * 2 + 1]) & 0xFF)); //Use only top right (green)
     }
 }
