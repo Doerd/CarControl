@@ -34,12 +34,14 @@ public abstract class SteeringBase implements Steerable {
      *
      * @return the degreeOffset, as a integer.
      */
-    int getDegreeOffset() {
-        int xOffset = origin.x - steerPoint.x;
-        int yOffset = Math.abs(origin.y - steerPoint.y);
+    public int getDegreeOffset() {
+	    int xOffset = origin.x - steerPoint.x;
+	    int yOffset = Math.abs(origin.y - steerPoint.y);
 
-        // Round the arctan of the xOffest, and yOffset
-        return (int) Math.round((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
+	    tempDeg = (int)((Math.atan2(-xOffset, yOffset)) * (180 / Math.PI));
+	    
+	    System.out.println("\n\n\n" + tempDeg + " " + myPID() + "\n\n\n");
+	    return (int)((Math.atan2(-(((usePID) ? (curveSteepness(tempDeg)>0.3) : false) ? myPID() : xOffset), yOffset)) * (180 / Math.PI));
     }
 
     /**
