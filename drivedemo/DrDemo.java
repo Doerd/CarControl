@@ -652,6 +652,8 @@ public class DrDemo extends JFrame implements MouseListener {
       } else {
           testSteering.findPoints(thePixels);
       }
+      int tempDeg = testSteering.drive(thePixels);
+      testSteering.findPoints(thePixels);
 
       if (StartYourEngines > 0) {
     	/*
