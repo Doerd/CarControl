@@ -36,6 +36,12 @@ import java.util.concurrent.TimeUnit;
 // import fly2cam.CameraBase;
 
 public class DrDemo extends JFrame implements MouseListener {
+	  private double sumOfAngles = 0;
+  private double locX = 0;
+  private double locY = 0;
+
+  private int frameCount = 0;
+  private boolean drawnMap = false;
 
     private final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 	
