@@ -15,6 +15,9 @@ public abstract class SteeringBase implements Steerable {
     public int screenHeight = DriverCons.D_ImHi;
     private double integral, previousError;
 
+    public int startTarget = 0;
+    public int endTarget = 0;
+
 
     public Point origin = new Point(cameraWidth / 2, screenHeight);
 
@@ -51,6 +54,10 @@ public abstract class SteeringBase implements Steerable {
         derivative = (error - previousError) / DriverCons.D_FrameTime;
         previousError = error;
         return error * kP + integral * kI + derivative * kD;
+
+    }
+
+    public void findPoints(int[] pixels) {
 
     }
 }

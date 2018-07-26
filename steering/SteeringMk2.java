@@ -1,21 +1,48 @@
 package steering;
 
 
+import fakefirm.Arduino;
+
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 public class SteeringMk2 extends SteeringBase {
-
-
 
     private Boolean leftSideFound = false;
     private Boolean rightSideFound = false;
 
+    private final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+    private int initialDelay = 20;
+    private int SteerPin;
+    private Arduino theServos = null;
+    private int averageOffset = 0;
+    private int framesCompiled = 0;
+
+    boolean haveNewPixels = false;
+
+    public SteeringMk2(int steerPin, Arduino theServos) {
+        this.SteerPin = steerPin;
+        this.theServos = theServos;
+        executor.scheduleAtFixedRate(() -> makeTurnAdjustment(), initialDelay, 50, TimeUnit.MILLISECONDS);
+    }
+
     @Override
     public int drive(int pixels[]) {
         findPoints(pixels);
-        averageMidpoints();
+        averagePoints();
         return getDegreeOffset();
     }
 
-    private void findPoints(int[] pixels) {
+    private void makeTurnAdjustment() {
+        if (haveNewPixels) {
+            theServos.servoWrite(SteerPin, getDegreeOffset() + 90);
+            averageOffset = 0;
+            framesCompiled = 0;
+        }
+    }
+
+    @Override
+    public void findPoints(int[] pixels) {
         clearArrays();
         int midX = cameraWidth / 2; // midX is where the car thinks is the middle of the road
         double distanceAhead = 1.8; // how far ahead the car looks for road. (Eventually dynamic?)
@@ -52,20 +79,25 @@ public class SteeringMk2 extends SteeringBase {
             } else if (rightSideFound) {
                 double lastY = rightPoints.get(rightPoints.size() - 1).y;
                 int lastX = rightPoints.get(rightPoints.size() - 1).x;
-                //midPoints.add(new Point((int)Math.round(lastX - ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2))), cameraRow));
+                midX = (int)Math.round(lastX - ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2)));
+                midPoints.add(new Point(midX, cameraRow));
             } else if (leftSideFound) {
                 double lastY = leftPoints.get(leftPoints.size() - 1).y;
                 int lastX = leftPoints.get(leftPoints.size() - 1).x;
-                //midPoints.add(new Point((int)Math.round(lastX + ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2))), cameraRow));
+                midX = (int)Math.round(lastX + ((cameraWidth) * Math.pow((lastY) / (screenHeight), 2)));
+                midPoints.add(new Point(midX, cameraRow));
 
                 // If no lanes are found, route towards found lines.
             } else {
-                //FINISH LATER
+                midX = cameraWidth / 2;
+                midPoints.add(new Point(midX, cameraRow));
             }
 
             rightSideFound = false;
             leftSideFound = false;
         }
+        averagePoints();
+        haveNewPixels = true;
     }
 
     private void clearArrays() {
@@ -74,20 +106,26 @@ public class SteeringMk2 extends SteeringBase {
         midPoints.clear();
     }
 
-    private void averageMidpoints() {
+    private void averagePoints() {
 
-        double tempY = 0;
-        double tempX = 0;
+        startTarget = (int)(midPoints.size() * 0.5);
+        endTarget = (int)(midPoints.size() * 0.7);
+
+        double ySum = 0;
+        double xSum = 0;
 
         // Sum the x's and the y's
-        for (Point point : midPoints) {
-            tempX += point.x;
-            tempY += point.y;
+        for (int idx = startTarget; idx <= endTarget; idx++) {
+            xSum += midPoints.get(idx).x;
+            ySum += midPoints.get(idx).y;
         }
 
-        steerPoint.x = (int) (tempX / midPoints.size());
-        steerPoint.y = (int) (tempY / midPoints.size());
+        steerPoint.x = (int) (xSum / (endTarget - startTarget));
+        steerPoint.y = (int) (ySum / (endTarget - startTarget));
 
+        //averageOffset += getDegreeOffset();
+        //framesCompiled++;
+        //System.out.println("AVERAGE OFFSET: " + (averageOffset / framesCompiled));
     }
 
 }

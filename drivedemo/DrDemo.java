@@ -30,11 +30,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 // import fly2cam.CameraBase;
 
 public class DrDemo extends JFrame implements MouseListener {
 
+    private final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 	
   private static final long serialVersionUID = 1L; // unneed but Java insists {
 
@@ -74,7 +77,7 @@ public class DrDemo extends JFrame implements MouseListener {
   private SteeringBase testSteering = null;
 
   private boolean StepMe = false, SimSpedFixt = DriverCons.D_FixedSpeed,
-    CamActive = false;
+    CamActive = false, beenThrough = false;
 
   private static JFrame theWindow = null; // (used by static method)
 
@@ -629,18 +632,28 @@ public class DrDemo extends JFrame implements MouseListener {
 
 
     // Steer between lines
-    theServos.servoWrite(SteerPin, ((testSteering.drive(thePixels)) + 90));
+    //theServos.servoWrite(SteerPin, ((testSteering.drive(thePixels)) + 90));
+      testSteering.findPoints(thePixels);
+
 
     // Draw lines on road
     graf.setColor(Color.RED);
     //graf.fillRect(100, testSteering.startingPoint, 1, 1);
 
-    for (Point point : testSteering.midPoints) {
-        if (DriverCons.D_DrawPredicted) {
-            graf.setColor(Color.BLUE);
-            graf.fillRect(point.x, point.y + edges.top, 5, 5);
-        }
-    }
+      if (DriverCons.D_DrawPredicted) {
+          int tempY = 0;
+          for (int idx = 0; idx < testSteering.midPoints.size(); idx++) {
+              if (idx >= testSteering.startTarget && idx <= testSteering.endTarget) {
+                  graf.setColor(Color.red);
+                  tempY += testSteering.midPoints.get(idx).y;
+                  graf.fillRect(testSteering.midPoints.get(idx).x, testSteering.midPoints.get(idx).y + edges.top, 5, 5);
+              } else {
+                  graf.setColor(Color.BLUE);
+              }
+              // graf.fillRect(testSteering.midPoints.get(idx).x, testSteering.midPoints.get(idx).y + edges.top, 5, 5);
+          }
+          System.out.println(tempY / (1.0 *(testSteering.endTarget - testSteering.startTarget)));
+      }
 
     if (DriverCons.D_DrawOnSides) {
         for (Point point : testSteering.leftPoints) {
@@ -651,9 +664,31 @@ public class DrDemo extends JFrame implements MouseListener {
             graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
         }
     }
+
+
       // Draw steerPoint on screen
       graf.setColor(Color.CYAN);
       graf.fillRect(testSteering.steerPoint.x, testSteering.steerPoint.y, 7, 7);
+
+
+      //Draw predicted points and detected lines
+      for (Point point : testSteering.midPoints) {
+          if (DriverCons.D_DrawPredicted) {
+              this.theSim.RectFill(255, point.y, point.x, point.y + 5, point.x + 5);
+          }
+      }
+      if (DriverCons.D_DrawOnSides) {
+          for (Point point : testSteering.leftPoints) {
+              int xL = point.x;
+              int yL = point.y;
+              this.theSim.RectFill(16776960, yL, xL, yL + 5, xL + 5);
+          }
+          for (Point point : testSteering.rightPoints) {
+              int xR = point.x;
+              int yR = point.y;
+              this.theSim.RectFill(16776960, yR, xR, yR + 5, xR + 5);
+          }
+      }
     
 
     
@@ -689,7 +724,7 @@ public class DrDemo extends JFrame implements MouseListener {
       if (DriverCons.D_steeringVersion == 1) {
           testSteering = new SteeringMk1();
       } else if (DriverCons.D_steeringVersion == 2) {
-          testSteering = new SteeringMk2();
+          testSteering = new SteeringMk2(SteerPin, theServos);
       }
       if (LiveCam) theVideo = new FlyCamera();
     ViDied = 0;

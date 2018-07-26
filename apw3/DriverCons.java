@@ -33,12 +33,12 @@ public class DriverCons { // TrakSim constant parameters
     D_FixedSpeed = true,    // ignore speed control, assume fMinSpeed
     D_StayInTrack = false,   // ignore steering control, stay centered in track
     D_ShoTrkTstPts = false, // T: show test points used to calc StayInTrack
-    D_ShoClikGrid = false,  // T: to see where to click to steer/accelerate
+    D_ShoClikGrid = true,  // T: to see where to click to steer/accelerate
     D_ShowMap = true,       // T: show the map next to the scene
     D_DoCloseUp = true,     // T: show close-up map if there is room
     D_RampServos = true,   // T: servos take time to arrive at setting
     D_TrakNoPix = false,    // T: draw track only, omit artifacts & trees
-    D_UseTexTrak = true,    // T: use text file to build track to drive
+    D_UseTexTrak = false,    // T: use text file to build track to drive
     D_Reversible = false,   // T: allow reverse (untested)
     D_StartInCalibrate = false, // T: use this to calibrate servo limits
     D_Log_Draw = false, D_Log_Log = false, D_Fax_Log = false,
@@ -50,7 +50,7 @@ public class DriverCons { // TrakSim constant parameters
     D_RampA = 300,     // Initial orient'n for car, c-wise degrees from north
     D_Zoom35 = 35,     // 35mm-equivalent focal length for "camera"
     D_BayTile = 1,     // Bayer8 tiling code (RG/GB) as defined by Pt.Grey
-    D_FrameTime = 200, // =5/fps, nominal frame rate for camera (must >= 20ms)
+    D_FrameTime = 50, // =5/fps, nominal frame rate for camera (must >= 20ms)
     D_nServoTests = 5, // number of times to run through test (1: no ESC)
     D_ServoMsgPos = 200*0x10000+0, // position of warning in image file,
       D_ServoMsgTL = 40*0x10001, D_ServoMsgSiz = 40*0x10000+80, // posn on screen
@@ -76,7 +76,7 @@ public class DriverCons { // TrakSim constant parameters
 
   public static final double D_TurnRadius = 7.0, // nom. meters in park coords
       // measured from midline fully cramped, servo position = 0/180
-    D_fMinSpeed = 5, // measured min (8x actual m/s = mph/2) @ MinESCact;
+    D_fMinSpeed = 20, // measured min (8x actual m/s = mph/2) @ MinESCact;
 
       // 1mph = 0.5m/s park speed = 3"/sec @ 1:8 scale floor speed
       // 1mph floor speed is 8mph park speed = 4m/s
