@@ -134,8 +134,8 @@ public class SteeringMk2 extends SteeringBase {
      */
     private void averagePoints() {
 
-        int startTarget = (int) (midPoints.size() * 0.5);
-        int endTarget = (int) (midPoints.size() * 0.7);
+        startTarget = (int) (midPoints.size() * 0.5);
+        endTarget = (int) (midPoints.size() * 0.7);
 
         double ySum = 0;
         double xSum = 0;

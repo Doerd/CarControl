@@ -15,6 +15,8 @@ public abstract class SteeringBase implements Steerable {
     final int cameraWidth = 640; // How wide the camera is (pixels)
     final int screenHeight = DriverCons.D_ImHi; // How tall the camera is (pixels)
     final int screenWidth = 912; // How wide the screen is (including maps)
+    public int startTarget = 0;
+    public int endTarget = 0;
     private double integral, // The integral of the
             previousError;  // PID
     Point origin = new Point(cameraWidth / 2, screenHeight);

@@ -638,8 +638,11 @@ public class DrDemo extends JFrame implements MouseListener {
 
 
     // Steer between lines
-    //theServos.servoWrite(SteerPin, ((testSteering.drive(thePixels)) + 90));
-      testSteering.findPoints(thePixels);
+      if (DriverCons.D_steeringVersion == 1) {
+          theServos.servoWrite(SteerPin, ((testSteering.drive(thePixels)) + 90));
+      } else {
+          testSteering.findPoints(thePixels);
+      }
 
 	   if (StartYourEngines > 0) {
     	/*
