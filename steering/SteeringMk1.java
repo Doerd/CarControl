@@ -254,15 +254,19 @@ public class SteeringMk1 extends SteeringBase{
 		double laneWidth = 4; // Needs to be measured
 		Point[] leftEdge = new Point[length];
 		Point[] rightEdge = new Point[length];
+		Point[] pathTraveled = new Point[length];
 		for(int i = 0; i < length; i++){
 			leftEdge[i] = new Point (0,0);
 			rightEdge[i] = new Point (0,0);
+			pathTraveled[i] = new Point (0,0);
 		}
 		for(int i = 0; i <= length; i++){
 			leftEdge[i].x = (int)(posLog.get(i*3) + laneWidth/2*Math.cos(posLog.get(i*3+2)+(Math.PI/2)));
 			leftEdge[i].y = (int)(posLog.get(i*3+1) + laneWidth/2*Math.sin(posLog.get(i*3+2)+(Math.PI/2)));
 			rightEdge[i].x = (int)(posLog.get(i*3) + laneWidth/2*Math.cos(posLog.get(i*3+2)-(Math.PI/2)));
 			rightEdge[i].y = (int)(posLog.get(i*3+1) + laneWidth/2*Math.sin(posLog.get(i*3+2)-(Math.PI/2)));
+			pathTraveled[i].x = (int)((double)posLog.get(i*3));
+			pathTraveled[i].y = (int)((double)posLog.get(i*3+1));
 		}
 	}
 
