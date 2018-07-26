@@ -117,7 +117,7 @@ public class BlobDetection implements IBlobDetection {
             }
         }
 
-        //eliminates blbos that are too large or too small
+        //eliminates blobs that are too large or too small
         for (BlobInProgress[] bipRow : bips) {
             for (BlobInProgress bip : bipRow) {
                 if (bip != null) {
