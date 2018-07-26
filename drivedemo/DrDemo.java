@@ -576,75 +576,84 @@ public class DrDemo extends JFrame implements MouseListener {
   * All the heavy lifting happens here. Called on timer activation.
   */
   @Override public void paint(Graphics graf) { // (in DrDemo)
-    int nx, fno = CamFrame, DimSave = 0;
-    int[] SaveScrn = null;
-    Insets edges;
-    if (DriverCons.D_Log_Draw)
-      System.out.println(HandyOps.TF2Log("DrDemo.paint ",BusyPaint,
-          HandyOps.TF2Log(" ",theImag != null,
-          HandyOps.TF2Log(" ",thePixels != null,""))));
-    if (BusyPaint) return; // Java won't accept local static method vars
-    if (ViDied>3) Stopit(ViDied); // video gone
-    BusyPaint = true;
-    edges = getInsets();
-    super.paint(graf);
-    // if (theImag == null)
-    if (thePixels != null) try {
-      if (theImag != null) if (graf != null) if (edges != null)
-        graf.drawImage(theImag,edges.left,edges.top,null);
-      if (StartYourEngines>0) StepMe = true;
-      if (GetCameraImg()) {
-        if (NoisyFrame !=0) if ((NoisyFrame&0xFFF)<CamFrame)
-          NoisyFrame = (NoisyFrame>>12)&0xFFFFF;
-          // Use: if ((NoisyFrame&0xFFF)==CamFrame) ...
-        fno = CamFrame;
-        if (((DarkState&1)==0)==OhDark) { // if (CamActive)
-          DarkState++; // briefly cover camera lens for state change..
-          System.out.println(HandyOps.Dec2Log("*** DarkFrame ",fno,
-              HandyOps.Dec2Log(" ",DarkState,HandyOps.PosTime(" *** @ "))));} //~if
-        CanDraw = false;
-        if (DrawStuff) {
-          DimSave = theSim.GetMyScreenDims();
-          SaveScrn = theSim.GetMyScreenAry();
-          if (thePixels != null) {
-            theSim.SetMyScreen(thePixels,ScrHi,ScrWi,1);
-            if (DimSave==0) DimSave--;
-            CanDraw = true;
-            if (!ShoClikGrid) { // otherwise TrakSim did it..
-              nx = 0;
-              if (Calibrating !=0) nx++;
-              else nx++;
-              if (nx>0) theSim.DrawGrid();}} //~if
-          else DimSave = 0;} //~if
-        if ((StartYourEngines==0)||(NoneStep<0)) fno = DidFrame;
+      int nx, fno = CamFrame, DimSave = 0;
+      int[] SaveScrn = null;
+      Insets edges;
+      if (DriverCons.D_Log_Draw)
+          System.out.println(HandyOps.TF2Log("DrDemo.paint ", BusyPaint,
+                  HandyOps.TF2Log(" ", theImag != null,
+                          HandyOps.TF2Log(" ", thePixels != null, ""))));
+      if (BusyPaint) return; // Java won't accept local static method vars
+      if (ViDied > 3) Stopit(ViDied); // video gone
+      BusyPaint = true;
+      edges = getInsets();
+      super.paint(graf);
+      // if (theImag == null)
+      if (thePixels != null) try {
+          if (theImag != null) if (graf != null) if (edges != null)
+              graf.drawImage(theImag, edges.left, edges.top, null);
+          if (StartYourEngines > 0) StepMe = true;
+          if (GetCameraImg()) {
+              if (NoisyFrame != 0) if ((NoisyFrame & 0xFFF) < CamFrame)
+                  NoisyFrame = (NoisyFrame >> 12) & 0xFFFFF;
+              // Use: if ((NoisyFrame&0xFFF)==CamFrame) ...
+              fno = CamFrame;
+              if (((DarkState & 1) == 0) == OhDark) { // if (CamActive)
+                  DarkState++; // briefly cover camera lens for state change..
+                  System.out.println(HandyOps.Dec2Log("*** DarkFrame ", fno,
+                          HandyOps.Dec2Log(" ", DarkState, HandyOps.PosTime(" *** @ "))));
+              } //~if
+              CanDraw = false;
+              if (DrawStuff) {
+                  DimSave = theSim.GetMyScreenDims();
+                  SaveScrn = theSim.GetMyScreenAry();
+                  if (thePixels != null) {
+                      theSim.SetMyScreen(thePixels, ScrHi, ScrWi, 1);
+                      if (DimSave == 0) DimSave--;
+                      CanDraw = true;
+                      if (!ShoClikGrid) { // otherwise TrakSim did it..
+                          nx = 0;
+                          if (Calibrating != 0) nx++;
+                          else nx++;
+                          if (nx > 0) theSim.DrawGrid();
+                      }
+                  } //~if
+                  else DimSave = 0;
+              } //~if
+              if ((StartYourEngines == 0) || (NoneStep < 0)) fno = DidFrame;
 
-        ///** If you have self-driving code, you could put it here **///
-          TestServos(); // (replace this with your own code)
-        if (CanDraw) {
-          DrawDemo();
-          if (CameraView) theSim.DrawSteerWheel(SteerDegs,true,true);} //~if
-        DidFrame = fno;
-        ///� if (!CameraView) if (StartYourEngines>0) {
-        ///�   theSim.SimStep(0);
-        ///�   StartYourEngines = 0;
-        ///�   AxLR8(true,0);} //~if
-        if (DrawStuff) if (CanDraw) if (DimSave>0) if (SaveScrn != null)
-          theSim.SetMyScreen(SaveScrn,DimSave>>16,DimSave&0xFFFF,1);
-        theImag = Int2BufImg(thePixels,ScrWi,ScrHi);}} //~if
-    catch (Exception ex) {theImag = null;}
-    BusyPaint = false;
+              ///** If you have self-driving code, you could put it here **///
+              TestServos(); // (replace this with your own code)
+              if (CanDraw) {
+                  DrawDemo();
+                  if (CameraView) theSim.DrawSteerWheel(SteerDegs, true, true);
+              } //~if
+              DidFrame = fno;
+              ///� if (!CameraView) if (StartYourEngines>0) {
+              ///�   theSim.SimStep(0);
+              ///�   StartYourEngines = 0;
+              ///�   AxLR8(true,0);} //~if
+              if (DrawStuff) if (CanDraw) if (DimSave > 0) if (SaveScrn != null)
+                  theSim.SetMyScreen(SaveScrn, DimSave >> 16, DimSave & 0xFFFF, 1);
+              theImag = Int2BufImg(thePixels, ScrWi, ScrHi);
+          }
+      } //~if
+      catch (Exception ex) {
+          theImag = null;
+      }
+      BusyPaint = false;
 
       this.GetCameraImg();
 
 
-    // Steer between lines
+      // Steer between lines
       if (DriverCons.D_steeringVersion == 1) {
           theServos.servoWrite(SteerPin, ((testSteering.drive(thePixels)) + 90));
       } else {
           testSteering.findPoints(thePixels);
       }
 
-	   if (StartYourEngines > 0) {
+      if (StartYourEngines > 0) {
     	/*
     		if (Math.abs(tempDeg - prevAngle) < 6 && onTurn == false) {
 			onTurn = true;
@@ -655,90 +664,90 @@ public class DrDemo extends JFrame implements MouseListener {
     		}
 		if (onTurn == false) {
 		*/
-   // 	(speed * time) / radius
-    			double inRadiusAngle = .57/2 * (double) tempDeg ;
-    			double outRadiusAngle = .38/2 * (double) tempDeg;
-    			if (tempDeg < 0) {
-    				outRadiusAngle = .45/2 * tempDeg;
-    				inRadiusAngle=0.7/2 * (double) tempDeg;
-    			}
-    			
-    			double turnRadiusIn = 2.68 / Math.tan(Math.toRadians(tempDeg * .37)) + .5 * (1.976);
-    			double turnRadiusOut = 2.68 / Math.tan(Math.toRadians(tempDeg * .37)) - .5 * (1.976);
-    			double averageTurnRadius = (turnRadiusIn + turnRadiusOut)/2;
-    			double angleTurned = ((double) DriverCons.D_FrameTime / 1000.0) * DriverCons.D_fMinSpeed / averageTurnRadius * 2;
-    			
-    			angleTurned = Math.toDegrees(angleTurned);
-    			if (tempDeg == 0) angleTurned = 0;
-    			
-			sumOfAngles += (double) angleTurned;
-			sumOfAngles = sumOfAngles;
-			
-			//if (sumOfAngles > 360) sumOfAngles = sumOfAngles - 360;
-			//if (sumOfAngles < 0) sumOfAngles = sumOfAngles + 360;
-		//}
-
-    		locX = locX + (double) Math.cos(Math.toRadians(sumOfAngles)) * (double) DriverCons.D_FrameTime/1000 * (double) DriverCons.D_fMinSpeed;
-    		locY = locY + (double) Math.sin(Math.toRadians(sumOfAngles)) * (double) DriverCons.D_FrameTime/1000 * (double) DriverCons.D_fMinSpeed;
-	  
-	  
-    // Draw lines on road
-    graf.setColor(Color.RED);
-    //graf.fillRect(100, testSteering.startingPoint, 1, 1);
-
-      if (DriverCons.D_DrawPredicted) {
-          int tempY = 0;
-          for (int idx = 0; idx < testSteering.midPoints.size(); idx++) {
-              if (idx >= testSteering.startTarget && idx <= testSteering.endTarget) {
-                  graf.setColor(Color.red);
-                  tempY += testSteering.midPoints.get(idx).y;
-                  graf.fillRect(testSteering.midPoints.get(idx).x, testSteering.midPoints.get(idx).y + edges.top, 5, 5);
-              } else {
-                  graf.setColor(Color.BLUE);
-              }
-              // graf.fillRect(testSteering.midPoints.get(idx).x, testSteering.midPoints.get(idx).y + edges.top, 5, 5);
+          // 	(speed * time) / radius
+          double inRadiusAngle = .57 / 2 * (double) tempDeg;
+          double outRadiusAngle = .38 / 2 * (double) tempDeg;
+          if (tempDeg < 0) {
+              outRadiusAngle = .45 / 2 * tempDeg;
+              inRadiusAngle = 0.7 / 2 * (double) tempDeg;
           }
-          System.out.println(tempY / (1.0 *(testSteering.endTarget - testSteering.startTarget)));
-      }
 
-    if (DriverCons.D_DrawOnSides) {
-        for (Point point : testSteering.leftPoints) {
-            graf.setColor(Color.YELLOW);
-            graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
-        }
-        for (Point point : testSteering.rightPoints) {
-            graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
-        }
-    }
+          double turnRadiusIn = 2.68 / Math.tan(Math.toRadians(tempDeg * .37)) + .5 * (1.976);
+          double turnRadiusOut = 2.68 / Math.tan(Math.toRadians(tempDeg * .37)) - .5 * (1.976);
+          double averageTurnRadius = (turnRadiusIn + turnRadiusOut) / 2;
+          double angleTurned = ((double) DriverCons.D_FrameTime / 1000.0) * DriverCons.D_fMinSpeed / averageTurnRadius * 2;
+
+          angleTurned = Math.toDegrees(angleTurned);
+          if (tempDeg == 0) angleTurned = 0;
+
+          sumOfAngles += (double) angleTurned;
+          sumOfAngles = sumOfAngles;
+
+          //if (sumOfAngles > 360) sumOfAngles = sumOfAngles - 360;
+          //if (sumOfAngles < 0) sumOfAngles = sumOfAngles + 360;
+          //}
+
+          locX = locX + (double) Math.cos(Math.toRadians(sumOfAngles)) * (double) DriverCons.D_FrameTime / 1000 * (double) DriverCons.D_fMinSpeed;
+          locY = locY + (double) Math.sin(Math.toRadians(sumOfAngles)) * (double) DriverCons.D_FrameTime / 1000 * (double) DriverCons.D_fMinSpeed;
 
 
-      // Draw steerPoint on screen
-      graf.setColor(Color.CYAN);
-      graf.fillRect(testSteering.steerPoint.x, testSteering.steerPoint.y, 7, 7);
+          // Draw lines on road
+          graf.setColor(Color.RED);
+          //graf.fillRect(100, testSteering.startingPoint, 1, 1);
 
-
-      //Draw predicted points and detected lines
-      for (Point point : testSteering.midPoints) {
           if (DriverCons.D_DrawPredicted) {
-              this.theSim.RectFill(255, point.y, point.x, point.y + 5, point.x + 5);
+              int tempY = 0;
+              for (int idx = 0; idx < testSteering.midPoints.size(); idx++) {
+                  if (idx >= testSteering.startTarget && idx <= testSteering.endTarget) {
+                      graf.setColor(Color.red);
+                      tempY += testSteering.midPoints.get(idx).y;
+                      graf.fillRect(testSteering.midPoints.get(idx).x, testSteering.midPoints.get(idx).y + edges.top, 5, 5);
+                  } else {
+                      graf.setColor(Color.BLUE);
+                  }
+                  // graf.fillRect(testSteering.midPoints.get(idx).x, testSteering.midPoints.get(idx).y + edges.top, 5, 5);
+              }
+              System.out.println(tempY / (1.0 * (testSteering.endTarget - testSteering.startTarget)));
           }
-      }
-      if (DriverCons.D_DrawOnSides) {
-          for (Point point : testSteering.leftPoints) {
-              int xL = point.x;
-              int yL = point.y;
-              this.theSim.RectFill(16776960, yL, xL, yL + 5, xL + 5);
-          }
-          for (Point point : testSteering.rightPoints) {
-              int xR = point.x;
-              int yR = point.y;
-              this.theSim.RectFill(16776960, yR, xR, yR + 5, xR + 5);
-          }
-      }
-    
 
-    
-  } //~paint
+          if (DriverCons.D_DrawOnSides) {
+              for (Point point : testSteering.leftPoints) {
+                  graf.setColor(Color.YELLOW);
+                  graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
+              }
+              for (Point point : testSteering.rightPoints) {
+                  graf.fillRect(point.x + edges.left, point.y + edges.top, 5, 5);
+              }
+          }
+
+
+          // Draw steerPoint on screen
+          graf.setColor(Color.CYAN);
+          graf.fillRect(testSteering.steerPoint.x, testSteering.steerPoint.y, 7, 7);
+
+
+          //Draw predicted points and detected lines
+          for (Point point : testSteering.midPoints) {
+              if (DriverCons.D_DrawPredicted) {
+                  this.theSim.RectFill(255, point.y, point.x, point.y + 5, point.x + 5);
+              }
+          }
+          if (DriverCons.D_DrawOnSides) {
+              for (Point point : testSteering.leftPoints) {
+                  int xL = point.x;
+                  int yL = point.y;
+                  this.theSim.RectFill(16776960, yL, xL, yL + 5, xL + 5);
+              }
+              for (Point point : testSteering.rightPoints) {
+                  int xR = point.x;
+                  int yR = point.y;
+                  this.theSim.RectFill(16776960, yR, xR, yR + 5, xR + 5);
+              }
+          }
+
+
+      }
+  }//~paint
 
   private static void starting() {theWindow = new DrDemo();}
 
